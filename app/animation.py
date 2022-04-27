@@ -1,6 +1,9 @@
 # app/animation.py
 
-import pygame
+import kengi
+
+
+pygame = kengi.pygame
 
 
 class AnimateSprite(pygame.sprite.Sprite):

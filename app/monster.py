@@ -2,13 +2,16 @@
 
 import random
 
-import pygame
+import kengi
 from app import animation
+
+pygame = kengi.pygame
+
 
 
 class Monster(animation.AnimateSprite):
     def __init__(self, game, name, monster_size, offset=0):
-        super(Monster, self).__init__(name, monster_size) 
+        super(Monster, self).__init__(name, monster_size)
         self.game = game
         self.attack = 0.3
         self.monster_health = 100

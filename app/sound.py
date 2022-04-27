@@ -1,7 +1,8 @@
 # app/sound.py
 
-import pygame
+import kengi
 
+pygame = kengi.pygame
 
 class SoundManager:
     def __init__(self):

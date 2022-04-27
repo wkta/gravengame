@@ -1,8 +1,11 @@
 # app/comet_event.py
 
-import pygame
+import kengi
 
 from app.comet import Comet
+
+pygame = kengi.pygame
+
 
 class CometFallEvent:
     def __init__(self, game):
@@ -12,7 +15,7 @@ class CometFallEvent:
         self.game = game
         self.fall_mode = False
         self.comets = pygame.sprite.Group()
-    
+
     def add_percent(self):
         self.percent += self.percent_speed / 100
 

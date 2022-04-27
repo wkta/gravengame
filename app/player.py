@@ -1,9 +1,11 @@
 # app/player.py
 
-import pygame
+import kengi
 
 from app import animation
 from app.weapon import Weapon
+
+pygame = kengi.pygame
 
 
 RESTART_BY_SCD = 60
@@ -36,7 +38,7 @@ class Player(animation.AnimateSprite):
     def animate_player(self):
         self.animate_sprite()
 
-    def update_player_health_bar(self, surface):        
+    def update_player_health_bar(self, surface):
         pygame.draw.rect(surface, (60, 63, 60), [self.rect.x + 50, self.rect.y + 20, self.player_max_health, 7])
         pygame.draw.rect(surface, (111, 210, 46), [self.rect.x + 50, self.rect.y + 20, self.player_health, 7])
 

@@ -1,11 +1,14 @@
 # app/game.py
 
-import pygame
+import kengi
 
 from app.player import Player
 from app.sound import SoundManager
 from app.monster import Mummy, Alien
 from app.comet_event import CometFallEvent
+
+
+pygame = kengi.pygame
 
 
 class Game:

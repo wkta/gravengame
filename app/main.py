@@ -5,9 +5,12 @@ __name__ = 'Comet Game'
 __author__ = 'Flavien HUGS'
 
 
-import math, sys, pygame
+import math, sys
+import kengi
 
 from app.game import Game
+
+pygame = kengi.pygame
 
 
 def main():

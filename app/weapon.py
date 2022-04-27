@@ -1,6 +1,9 @@
 # app/weapon.py
 
-import pygame
+import kengi
+
+
+pygame = kengi.pygame
 
 
 class Weapon(pygame.sprite.Sprite):

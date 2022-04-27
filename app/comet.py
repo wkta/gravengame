@@ -2,8 +2,10 @@
 
 import random
 
-import pygame
+import kengi
 
+
+pygame = kengi.pygame
 
 class Comet(pygame.sprite.Sprite):
     def __init__(self, comet_event):
