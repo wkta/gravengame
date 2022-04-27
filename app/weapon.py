@@ -1,6 +1,6 @@
 # app/weapon.py
 
-import kengi
+import katagames_engine as kengi
 
 
 pygame = kengi.pygame

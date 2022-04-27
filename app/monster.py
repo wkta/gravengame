@@ -2,7 +2,7 @@
 
 import random
 
-import kengi
+import katagames_engine as kengi
 from app import animation
 
 pygame = kengi.pygame

@@ -1,8 +1,10 @@
 # app/animation.py
 
-import kengi
+import katagames_engine as kengi
 
+kengi.init('hd')
 pygame = kengi.pygame
+
 
 
 class AnimateSprite(pygame.sprite.Sprite):

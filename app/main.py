@@ -6,7 +6,7 @@ __author__ = 'Flavien HUGS'
 
 
 import math, sys
-import kengi
+import katagames_engine as kengi
 
 from app.game import Game
 

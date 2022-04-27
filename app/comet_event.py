@@ -1,6 +1,6 @@
 # app/comet_event.py
 
-import kengi
+import katagames_engine as kengi
 
 from app.comet import Comet
 

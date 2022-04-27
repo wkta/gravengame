@@ -1,6 +1,6 @@
 # app/game.py
 
-import kengi
+import katagames_engine as kengi
 
 from app.player import Player
 from app.sound import SoundManager

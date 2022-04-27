@@ -1,6 +1,6 @@
 # app/player.py
 
-import kengi
+import katagames_engine as kengi
 
 from app import animation
 from app.weapon import Weapon
