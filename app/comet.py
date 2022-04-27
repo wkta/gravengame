@@ -7,6 +7,7 @@ import kengi
 
 pygame = kengi.pygame
 
+
 class Comet(pygame.sprite.Sprite):
     def __init__(self, comet_event):
         super(Comet, self).__init__()
