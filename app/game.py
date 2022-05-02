@@ -10,9 +10,10 @@ from app.comet_event import CometFallEvent
 
 pygame = kengi.pygame
 
-
 class Game:
     def __init__(self):
+
+        self.show_fps = True
         self.is_playing = False
 
         self.players = pygame.sprite.Group()
@@ -24,7 +25,12 @@ class Game:
         self.comet_event = CometFallEvent(self)
 
         self.monsters = pygame.sprite.Group()
-        self.score_font = pygame.font.Font("src/fonts/permanent_marker_regular.ttf", 30)
+        self.score_font = self.fps_font = pygame.font.Font(
+            "src/fonts/permanent_marker_regular.ttf", 30
+        )
+        self.help_text_font = pygame.font.Font(
+            "src/fonts/permanent_marker_regular.ttf", 16
+        )
         self.score = 0
 
         self.pressed = {}
@@ -47,13 +53,22 @@ class Game:
         self.score = 0
         self.sound_manager.play('game_over')
 
+    def update_fps(self, screen):
+        clock = pygame.time.Clock()
+        fps = str(int(clock.tick(60)))
+        fps_text = self.fps_font.render(f"FPS : {fps}", 1, (225, 225, 225))
+        screen.blit(fps_text, (50, 50))
+
     def start_game(self, screen):
-        score_text = self.score_font.render(f"Score : {self.score}", 1, (225, 225, 225))
+        text_color = (225, 225, 225)
+        score_text = self.score_font.render(f"Score : {self.score}", 1, text_color)
         screen.blit(score_text, (20, 20))
 
-        help_text_font = pygame.font.Font("src/fonts/permanent_marker_regular.ttf", 16)
-        help_text = help_text_font.render("touche 'esc', pour sortir".upper(), 1, (225, 225, 225))
-        screen.blit(help_text, (800, 40))
+        help_text_exit = self.help_text_font.render("'esc', pour sortir".upper(), 1, text_color)
+        screen.blit(help_text_exit, (800, 40))
+
+        help_text_fps = self.help_text_font.render("'F2', cacher/afficher FPS".upper(), 1, text_color)
+        screen.blit(help_text_fps, (800, 80))
 
         screen.blit(self.player.image, self.player.rect)
         self.player.update_player_health_bar(screen)

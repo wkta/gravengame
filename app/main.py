@@ -14,9 +14,10 @@ pygame = kengi.pygame
 
 
 def main():
-    FPSCLOCK = 60
     pygame.init()
-    fps_clock = pygame.time.Clock()
+
+    clock = pygame.time.Clock()
+    events = pygame.event.get()
 
     screen = pygame.display.set_mode((1080, 700))
     pygame.display.set_caption("COMMET FALL GAME".upper())
@@ -48,13 +49,18 @@ def main():
             screen.blit(play_button, play_button_rect)
             screen.blit(banner, banner_rect)
         pygame.display.flip()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE):
+        for event in events:
+            if (
+                event.type == pygame.QUIT
+                or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE)
+            ):
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
+                if event.key == pygame.K_F2:
+                    if game.is_playing:
+                        game.update_fps(screen)
                 if event.key == pygame.K_SPACE:
                     if game.is_playing:
                         game.player.launch_weapon()
@@ -68,5 +74,4 @@ def main():
                     game.start()
                     game.sound_manager.play('click')
 
-        fps_clock.tick(FPSCLOCK)
         pygame.display.update()
