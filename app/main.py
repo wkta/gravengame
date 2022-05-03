@@ -17,7 +17,6 @@ def main():
     pygame.init()
 
     clock = pygame.time.Clock()
-    events = pygame.event.get()
 
     screen = pygame.display.set_mode((1080, 700))
     pygame.display.set_caption("COMMET FALL GAME".upper())
@@ -45,11 +44,12 @@ def main():
 
         if game.is_playing:
             game.start_game(screen)
+            game.update_fps(screen)
         else:
             screen.blit(play_button, play_button_rect)
             screen.blit(banner, banner_rect)
         pygame.display.flip()
-        for event in events:
+        for event in pygame.event.get():
             if (
                 event.type == pygame.QUIT
                 or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE)
