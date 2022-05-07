@@ -13,7 +13,9 @@ from app.game import Game
 pygame = kengi.pygame
 
 
+
 def main():
+
     pygame.init()
 
     clock = pygame.time.Clock()
@@ -38,29 +40,27 @@ def main():
     play_button_rect.y = math.ceil(screen.get_height() / 2)
 
     game = Game()
+    gameover = False
 
-    while True:
-        screen.blit(background, background_position)
-
-        if game.is_playing:
-            game.start_game(screen)
-            game.update_fps(screen)
-        else:
-            screen.blit(play_button, play_button_rect)
-            screen.blit(banner, banner_rect)
-        pygame.display.flip()
+    while not gameover:
+        # (1) gestion evenements
         for event in pygame.event.get():
-            if (
-                event.type == pygame.QUIT
-                or (event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE)
-            ):
-                pygame.quit()
-                sys.exit()
+            if event.type == pygame.QUIT:
+                gameover = True
+
+            elif event.type == pygame.KEYUP and event.key == pygame.K_ESCAPE:
+                gameover = True
+
             elif event.type == pygame.KEYDOWN:
                 game.pressed[event.key] = True
                 if event.key == pygame.K_F2:
-                    if game.is_playing:
-                        game.update_fps(screen)
+                    # Toggle mechanism (cest comme un interrupteur qui bascule)
+                    if game.show_fps:
+                        game.show_fps = False
+                    else:
+                        game.show_fps = True
+                        game.reset_fps()
+
                 if event.key == pygame.K_SPACE:
                     if game.is_playing:
                         game.player.launch_weapon()
@@ -73,5 +73,30 @@ def main():
                 if play_button_rect.collidepoint(event.pos):
                     game.start()
                     game.sound_manager.play('click')
+        # (2) mise a jour logique
+        if game.show_fps:
+            game.update_fps()
 
-        pygame.display.update()
+        # (3) mise a jour graphique
+        screen.blit(background, background_position)
+
+        if game.is_playing:
+            game.start_game(screen)
+            if game.show_fps:
+                # affiche fps
+                game.paint_fps(screen)
+        else:
+            screen.blit(play_button, play_button_rect)
+            screen.blit(banner, banner_rect)
+
+        # flip OU display, utiliser les deux nest pas necessaire
+        pygame.display.flip()
+
+        # pygame.display.update()
+        clock.tick(45)  # permet de placer une limite sur la vitesse de
+        # rafraichissement du jeu -> max 45 passages dans la boucle de jeu
+        # chaque seconde
+
+    # en sortant de la boucle de jeu,
+    # ne pas oublier de remettre a zero pygame
+    pygame.quit()

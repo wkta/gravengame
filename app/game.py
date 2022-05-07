@@ -6,14 +6,14 @@ from app.player import Player
 from app.sound import SoundManager
 from app.monster import Mummy, Alien
 from app.comet_event import CometFallEvent
-
+import time
 
 pygame = kengi.pygame
 
 class Game:
     def __init__(self):
 
-        self.show_fps = True
+        self.show_fps = False
         self.is_playing = False
 
         self.players = pygame.sprite.Group()
@@ -35,6 +35,21 @@ class Game:
 
         self.pressed = {}
 
+        # pour affichage valeur FPS
+        self.frame_count = None
+        self.elapsed_time = None  # temps écoulé
+        self.last_t = None  # date dernier rafraichissement/update
+        self.mesure_fps = None  # nombre qui est la mesure des FPS
+        self.reset_fps()
+
+    def reset_fps(self):
+        # remise a zero comptage FPS
+
+        self.frame_count = 0
+        self.elapsed_time = 0  # temps écoulé
+        self.last_t = time.time()  # date dernier rafraichissement/update
+        self.mesure_fps = None  # nombre qui est la mesure des FPS
+
     def start(self):
         self.is_playing = True
         self.spawn_monster(Mummy)
@@ -53,11 +68,30 @@ class Game:
         self.score = 0
         self.sound_manager.play('game_over')
 
-    def update_fps(self, screen):
-        clock = pygame.time.Clock()
-        fps = str(int(clock.tick(60)))
-        fps_text = self.fps_font.render(f"FPS : {fps}", 1, (225, 225, 225))
-        screen.blit(fps_text, (50, 50))
+    def update_fps(self):
+        self.frame_count += 1
+        t_now = time.time()
+        self.elapsed_time += t_now - self.last_t
+        self.last_t = t_now
+
+        # mise a jour compteur FPS toutes les 2 sec
+        if self.elapsed_time > 2:
+            self.mesure_fps = round(self.frame_count / self.elapsed_time, 2)
+            self.frame_count = 0
+            self.elapsed_time = 0
+
+    def paint_fps(self, screen):
+        # uniquement:
+        # le dessin de la mesure des FPS,
+        # a condition qu'une mesure soit disponible!
+        if self.mesure_fps is None:
+            texte = f"FPS : ?"
+        else:
+            fps = self.mesure_fps
+            texte = f"FPS : {fps}"
+
+        fps_image = self.fps_font.render(texte, 1, (225, 225, 225))
+        screen.blit(fps_image, (50, 50))
 
     def start_game(self, screen):
         text_color = (225, 225, 225)
