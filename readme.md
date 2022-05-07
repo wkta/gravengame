@@ -7,12 +7,16 @@ Mini jeu en 2D avec le module Pygame : commet game est un mini jeu inspiré du t
 ### Tester
 ------------
 
-Avant toutes choses assurer vous que vous avez installer le module suivant sur votre machine.
+Avant toute chose assurez vous d'avoir installé les dépendances du projet
+(c'est a dire pygame et kengi).
 Le code a été écrit sous python 3.
 
-	- Créer un environnement virtuel et install le module pygame
+	- Créer un environnement virtuel et install toutes les dépendances du projet
         -- si vous utiliser pipenv, faite ''' make pipenv-install '''
         -- pour pip, faite ''' make pip-install '''
+
+Si `kengi` ne peut être trouvé par pip, installez-le directement depuis le
+[depot public kengi](https://github.com/gaudiatech/kengi)
 
 Télécharger ou cloner le projet ensuite rendez vous dans le dossier
 du projet et ouvrer votre invite de commande et faites :

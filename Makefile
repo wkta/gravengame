@@ -12,7 +12,11 @@ help:
 freeze:
 	pip freeze > requirements.txt
 
-install:
+pipenv-install:
+	@echo " Not implemented"
+
+
+pip-install:
 	pip install -r requirements.txt
 
 start:
